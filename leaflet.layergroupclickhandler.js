@@ -2,13 +2,12 @@
 
 'use strict';
 
-
 /**
  * Makes LayerGroups clickable via fill and handles clicks
  * @param group
  * @constructor
  */
-L.LayerGroupClickHandler = function (group) {
+var LayerGroupClickHandler = function (group) {
   var
     self = this,
     activeCallback,
@@ -75,3 +74,9 @@ L.LayerGroupClickHandler = function (group) {
     }
   };
 };
+
+if (module && module.exports) {
+  module.exports = LayerGroupClickHandler;
+} else {
+  L.LayerGroupClickHandler = LayerGroupClickHandler;
+}

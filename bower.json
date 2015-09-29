@@ -2,7 +2,7 @@
   "name": "leaflet-layergroupclickhandler",
   "description": "Makes LayerGroups clickable via fill and handles clicks",
   "homepage": "https://github.com/bgag/leaflet-layergroupclickhandler",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "keywords": [
     "leaflet"
   ],
