@@ -1,6 +1,6 @@
 /* global L:true */
 
-'use strict';
+'use strict'
 
 /**
  * Makes LayerGroups clickable via fill and handles clicks
@@ -8,75 +8,76 @@
  * @constructor
  */
 var LayerGroupClickHandler = function (group) {
-  var
-    self = this,
-    activeCallback,
-    backup = {},
-    enabled = false;
+  var self = this
+  var activeCallback
+  var backup = {}
+  var enabled = false
 
   var forEachLayer = function (layer, callback) {
-    if ('getLayers' in layer ){
+    if ('getLayers' in layer) {
       layer.getLayers().forEach(function (subLayer) {
-        forEachLayer(subLayer, callback);
-      });
+        forEachLayer(subLayer, callback)
+      })
     } else if ('options' in layer) {
-      callback(layer);
+      callback(layer)
     }
-  };
+  }
 
   this.enabled = function () {
-    return enabled;
-  };
+    return enabled
+  }
 
   this.enable = function (callback) {
-    enabled = true;
+    enabled = true
 
     forEachLayer(group, function (layer) {
-      /* jshint camelcase:false */
-      var id = layer._leaflet_id;
+      var id = layer._leaflet_id
 
       if (!(id in backup)) {
-        backup[id] = {fill: layer.options.fill};
+        backup[id] = {fill: layer.options.fill}
       }
 
-      layer.setStyle({fill: true});
-    });
+      layer.setStyle({fill: true})
+    })
 
     group.getLayers().forEach(function (layer) {
-      layer.on('click', callback);
-    });
+      layer.on('click', function (event) {
+        event.layer = layer
 
-    activeCallback = callback;
-  };
+        callback(event)
+      })
+    })
+
+    activeCallback = callback
+  }
 
   this.disable = function () {
-    enabled = false;
+    enabled = false
 
     forEachLayer(group, function (layer) {
-      /* jshint camelcase:false */
-      var id = layer._leaflet_id;
+      var id = layer._leaflet_id
 
       if (id in backup) {
-        layer.setStyle(backup[id]);
+        layer.setStyle(backup[id])
       } else {
-        layer.setStyle({fill: false});
+        layer.setStyle({fill: false})
       }
-    });
+    })
 
     group.getLayers().forEach(function (layer) {
-      layer.off('click', activeCallback);
-    });
-  };
+      layer.off('click', activeCallback)
+    })
+  }
 
   this.update = function () {
     if (enabled) {
-      self.enable(activeCallback);
+      self.enable(activeCallback)
     }
-  };
-};
+  }
+}
 
-if (module && module.exports) {
-  module.exports = LayerGroupClickHandler;
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = LayerGroupClickHandler
 } else {
-  L.LayerGroupClickHandler = LayerGroupClickHandler;
+  L.LayerGroupClickHandler = LayerGroupClickHandler
 }
