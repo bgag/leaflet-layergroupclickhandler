@@ -4,7 +4,7 @@
   "description": "Makes LayerGroups clickable via fill and handles clicks",
   "main": "leaflet.layergroupclickhandler.js",
   "scripts": {
-    "test": ""
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/bgag/leaflet-layergroupclickhandler/issues"
   },
-  "homepage": "https://github.com/bgag/leaflet-layergroupclickhandler"
+  "homepage": "https://github.com/bgag/leaflet-layergroupclickhandler",
+  "devDependencies": {
+    "standard": "^8.6.0"
+  }
 }
